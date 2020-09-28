@@ -1,0 +1,7 @@
+Store Container
+  Shopping Cart
+  ProductList
+    Product
+      ProductDetails
+      EditProduct
+  AddProduct
