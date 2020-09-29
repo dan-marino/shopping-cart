@@ -1,7 +1,8 @@
 import React from "react";
+import total from "../lib/helpers";
 
-function ShoppingCart({ products, cart }) {
-  if (Object.keys(cart).length === 0) {
+function ShoppingCart({ cart, onCheckout }) {
+  if (cart.length === 0) {
     return (
       <div className="cart">
         <h2>Your Cart</h2>
@@ -11,13 +12,6 @@ function ShoppingCart({ products, cart }) {
       </div>
     );
   } else {
-    const productsArray = Object.keys(cart).map((id) =>
-      products.find((prod) => prod.id === +id)
-    );
-
-    const total = productsArray.reduce((total, product) => {
-      return (total += product.price * cart[product.id]);
-    }, 0);
     return (
       <div className="cart">
         <h2>Your Cart</h2>
@@ -27,23 +21,23 @@ function ShoppingCart({ products, cart }) {
             <th>Quantity</th>
             <th>Price</th>
           </tr>
-          {productsArray.map((product) => {
+          {cart.map((product) => {
             return (
               <tr>
                 <td>{product.title}</td>
-                <td>{cart[product.id]}</td>
-                <td>{product.price}</td>
+                <td>{product.quantity}</td>
+                <td>${(product.price * product.quantity).toFixed(2)}</td>
               </tr>
             );
           })}
 
           <tr>
             <td colspan="3" class="total">
-              Total: ${total}
+              Total: ${total(cart)}
             </td>
           </tr>
         </table>
-        <a class="button checkout">Checkout</a>
+        <a class="button checkout" onClick={onCheckout}>Checkout</a>
       </div>
     );
   }
