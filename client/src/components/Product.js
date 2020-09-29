@@ -1,23 +1,17 @@
-import React from "react"
+import React from "react";
+import ProductDetails from "./ProductDetails";
+import ToggleableForm from "./ToggleableForm";
 
-function Product({product}) {
+function Product({ product, onCartClick }) {
   return (
     <div className="product" key={product.id}>
-      <div className="product-details">
-        <h3>{product.title}</h3>
-        <p className="price">${product.price}</p>
-        <p className="quantity">{product.quantity} left in stock</p>
-        <div className="actions product-actions">
-          <a className="button add-to-cart">Add to Cart</a>
-          <a className="button edit">Edit</a>
-        </div>
-        <a className="delete-button">
-          <span>X</span>
-        </a>
-      </div>
-      {/* <EditProductForm /> */}
+      <ProductDetails product={product} />
+      <a className="delete-button">
+        <span>X</span>
+      </a>
+      <ToggleableForm product={product} onCartClick={onCartClick} />
     </div>
   )
 }
 
-export default Product
+export default Product;
