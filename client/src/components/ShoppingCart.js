@@ -1,7 +1,14 @@
 import React from "react";
 import total from "../lib/helpers";
+import store from "../lib/store";
 
-function ShoppingCart({ cart, onCheckout }) {
+function ShoppingCart() {
+  const cart = store.getState().cart;
+
+  const onCheckout = () => {
+    store.dispatch({ type: 'CHECKOUT' });
+  }
+
   if (cart.length === 0) {
     return (
       <div className="cart">

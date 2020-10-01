@@ -1,4 +1,5 @@
 import React from "react";
+import store from "../lib/store";
 
 class ProductForm extends React.Component {
   state = {
@@ -15,6 +16,40 @@ class ProductForm extends React.Component {
     }
   }
 
+  onAddClick = (product) => {
+    fetch("/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((response) => response.json())
+      .then((product) => {
+        store.dispatch({
+          type: 'ADD_PRODUCT',
+          payload: { newProduct: product }
+        });
+      });
+  };
+
+  onEditClick = (updatedProduct, productId) => {
+    fetch(`/api/products/${productId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedProduct),
+    })
+      .then((response) => response.json())
+      .then((product) => {
+        store.dispatch({
+          type: 'UPDATE_PRODUCT',
+          payload: { product }
+        });
+      });
+  };
+
   handleClick = (e) => {
     e.preventDefault();
 
@@ -24,9 +59,9 @@ class ProductForm extends React.Component {
     if (Object.keys(fieldErrors).length) return;
 
     if (this.props.product) {
-      this.props.onEditClick(this.state, this.props.product._id);
+      this.onEditClick(this.state, this.props.product._id);
     } else {
-      this.props.onAddClick(this.state);
+      this.onAddClick(this.state);
     }
     this.props.toggleForm();
   };

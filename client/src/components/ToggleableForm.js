@@ -1,5 +1,6 @@
 import React from "react";
 import ProductForm from "./ProductForm.js";
+import store from "../lib/store.js";
 
 class ToggleableForm extends React.Component {
   state = {
@@ -12,9 +13,16 @@ class ToggleableForm extends React.Component {
     });
   };
 
+  addToCart = (product) => {
+    store.dispatch({
+      type: 'ADD_TO_CART',
+      payload: { product }
+    });
+  };
+
   handleCartClick = (e) => {
     e.preventDefault();
-    this.props.onCartClick(this.props.product);
+    this.addToCart(this.props.product);
   };
 
   render() {
@@ -23,8 +31,6 @@ class ToggleableForm extends React.Component {
         <ProductForm
           product={this.props.product}
           toggleForm={this.toggleForm}
-          onAddClick={this.props.onAddClick}
-          onEditClick={this.props.onEditClick}
         />
       );
     } else {
