@@ -1,6 +1,5 @@
 import React from "react";
-import ProductForm from "./ProductForm.js";
-import store from "../lib/store.js";
+import ProductFormContainer from "../containers/ProductFormContainer.js";
 
 class ToggleableForm extends React.Component {
   state = {
@@ -13,22 +12,15 @@ class ToggleableForm extends React.Component {
     });
   };
 
-  addToCart = (product) => {
-    store.dispatch({
-      type: 'ADD_TO_CART',
-      payload: { product }
-    });
-  };
-
   handleCartClick = (e) => {
     e.preventDefault();
-    this.addToCart(this.props.product);
+    this.props.addToCart();
   };
 
   render() {
     if (this.state.isOpen) {
       return (
-        <ProductForm
+        <ProductFormContainer
           product={this.props.product}
           toggleForm={this.toggleForm}
         />

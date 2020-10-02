@@ -1,31 +1,20 @@
 import React from "react";
-import ShoppingCart from "./ShoppingCart";
-import ProductList from "./ProductList";
-import ToggleableForm from "./ToggleableForm";
-import store from "../lib/store.js";
+import ShoppingCartContainer from "../containers/ShoppingCartContainer";
+import ProductListContainer from "../containers/ProductListContainer";
+import ToggleableFormContainer from "../containers/ToggleableFormContainer";
 
 class App extends React.Component {
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   render() {
     return (
       <div id="app">
         <header>
           <h1>The Shop!</h1>
-          <ShoppingCart />
+          <ShoppingCartContainer />
         </header>
 
         <main>
-          <ProductList />
-          <ToggleableForm />
+          <ProductListContainer />
+          <ToggleableFormContainer />
         </main>
       </div>
     );

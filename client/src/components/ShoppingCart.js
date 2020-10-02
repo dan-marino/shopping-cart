@@ -1,14 +1,7 @@
 import React from "react";
 import total from "../lib/helpers";
-import store from "../lib/store";
 
-function ShoppingCart() {
-  const cart = store.getState().cart;
-
-  const onCheckout = () => {
-    store.dispatch({ type: 'CHECKOUT' });
-  }
-
+function ShoppingCart({ cart, onCheckout }) {
   if (cart.length === 0) {
     return (
       <div className="cart">
@@ -44,7 +37,9 @@ function ShoppingCart() {
             </td>
           </tr>
         </table>
-        <a class="button checkout" onClick={onCheckout}>Checkout</a>
+        <a class="button checkout" onClick={onCheckout}>
+          Checkout
+        </a>
       </div>
     );
   }
